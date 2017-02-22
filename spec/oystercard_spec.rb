@@ -1,6 +1,7 @@
 require "oystercard"
 
 describe Oystercard do
+  let(:entry_station) {double :entry_station}
 
   context "#balance" do
   it "carries a balance" do
@@ -56,14 +57,20 @@ end
     end
 
     it "registers as being in a journey after touchin" do
-      subject.touch_in
+      subject.touch_in(entry_station)
       expect(subject).to be_on_journey
+    end
+
+    it "remembers which station it touched in from", :tag => true do
+
+      subject.touch_in(entry_station)
+      expect(subject.entry_station).to eq entry_station
     end
   end
 
 context "#touch_in_errors" do
     it "raises an error when minimum amount not reached" do
-      expect{ subject.touch_in }.to raise_error "min. balance of £#{Oystercard::MIN_MONEY} not reached"
+      expect{ subject.touch_in(entry_station) }.to raise_error "min. balance of £#{Oystercard::MIN_MONEY} not reached"
     end
   end
 
@@ -77,14 +84,20 @@ context "#touch_out" do
   end
 
   it "registers as journey complete after touch_out" do
-    subject.touch_in
+    subject.touch_in(entry_station)
     subject.touch_out
     expect(subject).not_to be_on_journey
   end
 
-  it " deducts minimum fare when touch_out" do
-  subject.touch_in
+  it "deducts minimum fare when touch_out" do
+  subject.touch_in(entry_station)
   expect{ subject.touch_out}.to change{ subject.balance}.by -(Oystercard::MINIMUM_FARE)
+  end
+
+  it "causes OysterCard to forget entry station" do
+    subject.touch_in(entry_station)
+    subject.touch_out
+    expect(subject.entry_station).to eq nil
   end
 end
 end
