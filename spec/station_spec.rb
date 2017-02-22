@@ -3,7 +3,11 @@ require 'station'
 describe Station do
 
   it "should have a name" do
-    expect(subject.name).to eq name
+    station = Station.new("Aldgate")
+    expect(station.name).to eq "Aldgate"
   end
 
+  it "should have a zone" do
+    expect(station.zone).to eq zone
+  end
 end
