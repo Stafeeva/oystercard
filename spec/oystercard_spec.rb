@@ -2,6 +2,7 @@ require "oystercard"
 
 describe Oystercard do
   let(:entry_station) {double :entry_station}
+  let(:exit_station) {double :exit_station}
 
   context "#balance" do
   it "carries a balance" do
@@ -13,6 +14,13 @@ describe Oystercard do
   end
 
 end
+
+  context "#journey history" do
+    it "should show us an empty journey history initially" do
+      expect(subject.history).to eq []
+    end
+
+  end
 
   context "#topup" do
 
@@ -74,19 +82,32 @@ context "#touch_out" do
 
   it "registers as journey complete after touch_out" do
     subject.touch_in(entry_station)
-    subject.touch_out
+    subject.touch_out(exit_station)
     expect(subject).not_to be_on_journey
   end
 
   it "deducts minimum fare when touch_out" do
   subject.touch_in(entry_station)
-  expect{ subject.touch_out}.to change{ subject.balance}.by -(Oystercard::MINIMUM_FARE)
+  expect{ subject.touch_out(exit_station)}.to change{ subject.balance}.by -(Oystercard::MINIMUM_FARE)
   end
 
   it "causes OysterCard to forget entry station" do
     subject.touch_in(entry_station)
-    subject.touch_out
+    subject.touch_out(exit_station)
     expect(subject.entry_station).to eq nil
   end
+
+  it "remembers which station it touched out from" do
+    subject.touch_in(entry_station)
+    subject.touch_out(exit_station)
+    expect(subject.exit_station).to eq exit_station
+  end
+
+  it "remembers the entire journey" do
+    subject.touch_in(entry_station)
+    subject.touch_out(exit_station)
+    expect(subject.history).to eq [ { "entry_station" => entry_station, "exit_station" => exit_station } ]
+  end
+
 end
 end
