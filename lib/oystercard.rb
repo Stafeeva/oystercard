@@ -1,7 +1,7 @@
 require_relative 'Journey'
 
 class Oystercard
-  attr_reader :balance, :history, :journey 
+  attr_reader :balance, :history, :journey
 
   MAX_MONEY = 90
   MIN_MONEY = 1
@@ -25,10 +25,11 @@ class Oystercard
   def touch_out(station)
     @journey.finish_journey(station, self)
     deduct(MINIMUM_FARE)
+    @journey = nil
   end
 
   def on_journey?
-    !!entry_station
+    !!@journey
   end
 
   private

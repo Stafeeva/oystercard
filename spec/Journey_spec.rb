@@ -1,6 +1,5 @@
-require 'Journey'
+require 'journey'
 
 describe Journey do
 
-  subject.
 end

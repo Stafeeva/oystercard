@@ -22,19 +22,3 @@ class Journey
   end
 
 end
-
-
-  #
-  # def touch_out(station)
-  #   @exit_station = station
-  #   deduct(MINIMUM_FARE)
-  #   @history << {
-  #     :entry_station => @entry_station,
-  #     :exit_station => @exit_station
-  #     }
-  #   @entry_station = nil
-  # end
-  #
-  # def on_journey?
-  #   !!entry_station
-  # end

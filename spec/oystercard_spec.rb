@@ -58,11 +58,11 @@ end
       expect(subject).to be_on_journey
     end
 
-    it "remembers which station it touched in from", :tag => true do
-
-      subject.touch_in(entry_station)
-      expect(subject.entry_station).to eq entry_station
-    end
+    # it "remembers which station it touched in from", :tag => true do
+    #
+    #   subject.touch_in(entry_station)
+    #   expect(subject.entry_station).to eq entry_station
+    # end
   end
 
 context "#touch_in_errors" do
@@ -91,17 +91,17 @@ context "#touch_out" do
   expect{ subject.touch_out(exit_station)}.to change{ subject.balance}.by -(Oystercard::MINIMUM_FARE)
   end
 
-  it "causes OysterCard to forget entry station" do
-    subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.entry_station).to eq nil
-  end
+  # it "causes OysterCard to forget entry station" do
+  #   subject.touch_in(entry_station)
+  #   subject.touch_out(exit_station)
+  #   expect(subject.entry_station).to eq nil
+  # end
 
-  it "remembers which station it touched out from" do
-    subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.exit_station).to eq exit_station
-  end
+  # it "remembers which station it touched out from" do
+  #   subject.touch_in(entry_station)
+  #   subject.touch_out(exit_station)
+  #   expect(subject.exit_station).to eq exit_station
+  # end
 
   it "remembers the entire journey" do
     subject.touch_in(entry_station)
