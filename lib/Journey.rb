@@ -15,7 +15,6 @@ class Journey
       :entry_station => @entry_station,
       :exit_station => @exit_station
       }
-    @entry_station = nil
   end
 
   def fare
