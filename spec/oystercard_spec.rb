@@ -32,17 +32,6 @@ end
 
   end
 
-  # context "#deduct" do
-  #   it "responds to deduct with 1 argument" do
-  #     expect(subject).to respond_to(:deduct).with(1).argument
-  #   end
-  #
-  #   it "deducts fare from balance" do
-  #     expect{subject.deduct(10)}.to change{ subject.balance }.by -10
-  #   end
-  #
-  # end
-
   context "#touch_in" do
     before(:each) do
       subject.topup(50)
