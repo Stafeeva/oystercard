@@ -26,12 +26,12 @@ class Oystercard
   def touch_out(station)
     @exit_station = station
     deduct(MINIMUM_FARE)
-    journey = Hash.new
-    journey[:entry_station] = @entry_station
-    journey[:exit_station] = @exit_station
+    journey = {
+      :entry_station => @entry_station,
+      :exit_station => @exit_station
+      }
     @history << journey
     @entry_station = nil
-
   end
 
   def on_journey?
