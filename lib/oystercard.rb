@@ -7,6 +7,7 @@ class Oystercard
   MIN_MONEY = 1
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
+
   def initialize
     @balance = 0
     @history = []
@@ -19,7 +20,8 @@ class Oystercard
   end
 
   def touch_in(station)
-    @journey =Journey.new
+    deduct(PENALTY_FARE) if on_journey?
+    @journey = Journeylog.new
     fail "min. balance of £#{Oystercard::MIN_MONEY} not reached" if @balance <= MIN_MONEY
     @journey.start_journey(station)
   end
@@ -27,9 +29,9 @@ class Oystercard
   def touch_out(station)
     if @journey == nil
        deduct(PENALTY_FARE)
-       @journey =  Journey.new
+       @journey =  Journeylog.new
     else
-      fare = @journey.fare
+      fare = Journey.new.fare
       deduct(fare)
     end
     @journey.finish_journey(station)

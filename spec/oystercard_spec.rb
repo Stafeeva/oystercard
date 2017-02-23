@@ -64,7 +64,8 @@ context "#touch_in_errors" do
     it "raises an error when minimum amount not reached" do
       expect{ subject.touch_in(entry_station) }.to raise_error "min. balance of £#{Oystercard::MIN_MONEY} not reached"
     end
-  end
+
+end
 
 context "#touch_out" do
   before(:each) do
@@ -98,5 +99,13 @@ context "#touch_out" do
     expect(subject.history).to eq [ { :entry_station => entry_station, :exit_station => exit_station } ]
   end
 
-end
+  end
+
+  context "#penalty fare" do
+    it "should deduct penalty fare when touch_in twice" do
+      subject.topup(10)
+      subject.touch_in(entry_station)
+      expect{subject.touch_in(entry_station)}.to change{ subject.balance }.by -(Oystercard::PENALTY_FARE)
+    end
+  end
 end
