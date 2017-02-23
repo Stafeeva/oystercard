@@ -26,7 +26,7 @@ class Oystercard
   def touch_out(station)
     @journey.finish_journey(station)
     deduct(MINIMUM_FARE)
-    @journey.save_history(sel)
+    @journey.save_history(self)
     @journey = nil
   end
 
