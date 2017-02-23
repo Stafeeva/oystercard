@@ -86,11 +86,6 @@ context "#touch_out" do
     expect(subject.journey).to eq nil
   end
 
-  it "remembers the entire journey" do
-    subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.history).to eq [ { :entry_station => entry_station, :exit_station => exit_station } ]
-  end
 
   end
 
