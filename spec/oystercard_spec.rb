@@ -10,32 +10,32 @@ describe Oystercard do
   end
 
   it "has an effect on the balance" do
-    expect{ subject.topup(10)}.to change{ subject.balance }.by 10
+    expect{ subject.top_up(10)}.to change{ subject.balance }.by 10
   end
 
 end
 
-  context "#topup" do
+  context "#top_up" do
 
     it "responds to topup with 1 argument" do
-      expect(subject).to respond_to(:topup).with(1).argument
+      expect(subject).to respond_to(:top_up).with(1).argument
     end
 
 
     it "allows topup with a value" do
-      expect(subject.topup(20)).to eq 20
+      expect(subject.top_up(20)).to eq 20
     end
 
 
     it "will not topup when the balance would be over £#{Oystercard::MAX_MONEY}" do
-      expect{subject.topup(91)}.to raise_error "Your balance cannot go over £#{Oystercard::MAX_MONEY}."
+      expect{subject.top_up(91)}.to raise_error "Your balance cannot go over £#{Oystercard::MAX_MONEY}."
     end
 
   end
 
   context "#touch_in" do
     before(:each) do
-      subject.topup(50)
+      subject.top_up(50)
     end
 
     it "is initially not in a journey" do
@@ -62,7 +62,7 @@ end
 
 context "#touch_out" do
   before(:each) do
-    subject.topup(50)
+    subject.top_up(50)
   end
 
   it "responds to touch_out method" do
@@ -83,7 +83,7 @@ context "#touch_out" do
   it "causes OysterCard to forget entry station" do
     subject.touch_in(entry_station)
     subject.touch_out(exit_station)
-    expect(subject.journey).to eq nil
+    expect(subject.current_journey).to eq nil
   end
 
 
@@ -91,7 +91,7 @@ context "#touch_out" do
 
   context "#penalty fare" do
     it "should deduct penalty fare when touch_in twice" do
-      subject.topup(10)
+      subject.top_up(10)
       subject.touch_in(entry_station)
       expect{subject.touch_in(entry_station)}.to change{ subject.balance }.by -(Oystercard::PENALTY_FARE)
     end

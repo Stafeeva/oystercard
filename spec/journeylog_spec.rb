@@ -1,7 +1,7 @@
 require 'journeylog'
 
 describe Journeylog do
-  
+
   let(:entry_station) {double :entry_station}
   let(:exit_station) {double :exit_station}
 
@@ -20,6 +20,7 @@ describe Journeylog do
     it "should show us an empty journey history initially" do
       expect(subject.history).to eq []
     end
+    
     it "remembers the entire journey" do
       subject.start_journey(entry_station)
       subject.finish_journey(exit_station)
