@@ -12,4 +12,12 @@ describe Journeylog do
     expect(subject.exit_station).to eq "Aldgate"
   end
 
+  context "#journey history" do
+
+    it "should show us an empty journey history initially" do
+      expect(subject.history).to eq []
+    end
+
+  end
+
 end

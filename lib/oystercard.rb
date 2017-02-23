@@ -1,4 +1,5 @@
 require_relative 'Journey'
+require_relative 'Journeylog'
 
 class Oystercard
   attr_reader :balance, :history, :journey

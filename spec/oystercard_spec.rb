@@ -15,13 +15,6 @@ describe Oystercard do
 
 end
 
-  context "#journey history" do
-    it "should show us an empty journey history initially" do
-      expect(subject.history).to eq []
-    end
-
-  end
-
   context "#topup" do
 
     it "responds to topup with 1 argument" do
