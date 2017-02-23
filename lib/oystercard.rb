@@ -35,6 +35,7 @@ class Oystercard
     deduct_fare
     @journeylog.finish_journey(station)
     @current_journey = nil
+    @journeylog.reset
   end
 
   def deduct_fare
