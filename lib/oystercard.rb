@@ -6,10 +6,11 @@ class Oystercard
   MAX_MONEY = 90
   MIN_MONEY = 1
   MINIMUM_FARE = 1
-
+  PENALTY_FARE = 6
   def initialize
     @balance = 0
     @history = []
+    @journey = nil
   end
 
   def topup(value)
@@ -18,17 +19,23 @@ class Oystercard
   end
 
   def touch_in(station)
+    @journey =Journey.new
     fail "min. balance of £#{Oystercard::MIN_MONEY} not reached" if @balance <= MIN_MONEY
-    @journey = Journey.new
     @journey.start_journey(station)
   end
 
   def touch_out(station)
+    if @journey == nil
+       deduct(PENALTY_FARE)
+       @journey =  Journey.new
+    else
+      fare = @journey.fare
+      deduct(fare)
+    end
     @journey.finish_journey(station)
-    deduct(MINIMUM_FARE)
     @journey.save_history(self)
     @journey = nil
-  end
+end
 
   def on_journey?
     !!@journey
