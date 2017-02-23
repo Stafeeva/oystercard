@@ -76,18 +76,11 @@ context "#touch_out" do
   end
 
   it "deducts minimum fare when touch_out" do
-  subject.touch_in(entry_station)
-  expect{ subject.touch_out(exit_station)}.to change{ subject.balance}.by -(Oystercard::MINIMUM_FARE)
-  end
-
-  it "causes OysterCard to forget entry station" do
     subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.current_journey).to eq nil
+    expect{ subject.touch_out(exit_station)}.to change{ subject.balance}.by -(Oystercard::MINIMUM_FARE)
   end
 
-
-  end
+end
 
   context "#penalty fare" do
     it "should deduct penalty fare when touch_in twice" do
