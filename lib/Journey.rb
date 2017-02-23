@@ -4,13 +4,20 @@ class Journey
 
   MINIMUM_FARE = 1
 
-  def initialize(station)
-    @entry_station = station
+  def initialize
+    @entry_station = nil
     @exit_station = nil
   end
 
-  def finish_journey(station, oystercard)
+  def start_journey(station)
+    @entry_station = station
+  end
+
+  def finish_journey(station)
     @exit_station = station
+  end
+
+  def save_history(oystercard)
     oystercard.history << {
       :entry_station => @entry_station,
       :exit_station => @exit_station
