@@ -2,6 +2,7 @@ require_relative 'Journey'
 require_relative 'Journeylog'
 
 class Oystercard
+
   attr_reader :balance, :journeylog
 
   MAX_MONEY = 90
